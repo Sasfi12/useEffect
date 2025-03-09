@@ -1,0 +1,13 @@
+.shownElems {
+    background-color: red;
+    padding: 0;
+    gap: 100rem;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 400px;
+    li {
+        background-color: rebeccapurple;
+        margin-left: 20px;
+    }
+}
