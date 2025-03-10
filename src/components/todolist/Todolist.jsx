@@ -8,7 +8,7 @@ export default function ToDoList({shownElems , newSearch}) {
     <ul className="shownElems">
         {shownElems.map( (e , index) => {
          return (
-            <li key={index}>{e.name}</li>
+            <li key={index}>{e}</li>
          )} )}
     </ul>
     </div>
