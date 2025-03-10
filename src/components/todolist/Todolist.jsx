@@ -7,11 +7,9 @@ export default function ToDoList({shownElems , newSearch}) {
     <input type="search" onChange={newSearch} />
     <ul className="shownElems">
         {shownElems.map( (e , index) => {
-           return (
-               <input key={index} value={e} />
-            )
-            
-        } )}
+         return (
+            <li key={index}>{e.name}</li>
+         )} )}
     </ul>
     </div>
     )

@@ -90,15 +90,23 @@ useEffect(() => {
 Dans ce component se trouve également une bar de recherche qui va permettre de filtrer les taches. 
 Utiliser useEffect pour mettre à jour la liste de taches en fonction de la recherche de l'utilisateur et useState pour stocker les taches et la valeur de recherche.
 */
-const todoList = ["task 1 |" , "task 2 |" , "task 3 |" , "task 4 |" , "objective 1 |" , "objective 2 |" , "objective 3 |" , "objective 4 |"] ;
-const [shownElems , setShownElems] = useState([...[todoList]])
+const todoList = [  {id:"1",name:"task 1" }, 
+                    {id:"2", name:"task 2" }, 
+                    {id:"3", name:"task 3" } , 
+                    {id:"4", name:"task 4" } , 
+                    {id:"5", name:"objective 1" } , 
+                    {id:"6", name:"objective 2 " } , 
+                    {id:"7", name:"objective 3" } , 
+                    {id:"8", name:"objective 4" }] ;
+const [shownElems , setShownElems] = useState(...[todoList])
 const [currentSearch , setCurrentSearch] = useState("")
 function newSearch(e) {
   setCurrentSearch(e.target.value)
+  
 }
 useEffect(() => {
-  
-}, [currentSearch])
+  console.log(shownElems)
+}, [])
 /*
 ## Exo 6
 - Créer un component AnimatedButton qui contient un bouton. Lorsqu'on clique sur le bouton il va faire apparaitre un carré qui va clignoter toutes les secondes. 
