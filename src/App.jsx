@@ -23,14 +23,13 @@ useEffect(() => {
 */
 let [seconds , setSeconds] = useState(0)
 let [minutes , setMinutes] = useState(0)
-let interval = useRef(null)
 
 useEffect(() => {
-  interval.current = setInterval(() => {
+  let interval = setInterval(() => {
     setSeconds((prevSeconds) => prevSeconds + 1);
   }, 1000); // Set interval to 1s for realistic timing
 
-  return () => clearInterval(interval.current);
+  return () => clearInterval(interval);
 }, []);
 
 // Effect to increment minutes when seconds reach 60
@@ -72,18 +71,27 @@ let progressInterval = useRef(null) ;
 - Créer un component Timer qui va afficher un compte à rebours. 
 Utiliser le useEffect pour gèrer les secondes à retirer et useState pour gèrer l'affichage du compte à rebours.
 */ 
-let [countdown , setCountdown] = useState(10); 
-let countdownInterval = useRef(null)
+let [secondsDown , setSecondsDown] = useState(59)
+let [minutesDown , setMinutesDown] = useState(59)
+
 useEffect(() => {
-  countdownInterval.current = setInterval(() => {
-    setCountdown(currentCount => { 
-      if (currentCount - 1 == 0) clearInterval(countdownInterval.current)
-      return currentCount - 1    })
-    
-  } , 1000)
-  return () => clearInterval(countdownInterval.current)
-}, [])
- 
+  let interval = setInterval(() => {
+    setSecondsDown((prevSeconds) => prevSeconds - 1);
+  }, 1000); // Set interval to 1s for realistic timing
+
+  return () => clearInterval(interval);
+}, []);
+
+// Effect to increment minutes when seconds reach 60
+useEffect(() => {
+  if (secondsDown <= 0) {
+    setMinutesDown((prevMinutes) => --prevMinutes );
+    setSecondsDown(59);
+  }
+  if (minutesDown <= 0) {
+    setMinutesDown(59)
+  }
+}, [secondsDown]);
 /*
 ## Exo 5
 - Créer un component ToDoList qui contient une liste de taches qui auront chacune un titre. 
@@ -98,20 +106,21 @@ function newSearch(e) {
   console.log(e.target.value)
 }
 useEffect(() => {
-  setShownElems(...[todoList.filter(elem => elem.toLowerCase().trim().includes(currentSearch.trim().toLowerCase()))])
+  setShownElems(todoList.filter(elem => elem.toLowerCase().trim().includes(currentSearch.trim().toLowerCase())))
 }, [currentSearch])
 /*
 ## Exo 6
 - Créer un component AnimatedButton qui contient un bouton. Lorsqu'on clique sur le bouton il va faire apparaitre un carré qui va clignoter toutes les secondes. 
 Lorsqu'on rappuis dessus le carré disparait. Utiliser useState pour gèrer l'état d'affichage du carré et useEffect pour lancer/arreter l'animation
 */ 
- 
+const [showSquare , setShowSquare] = useState(false)
+
 /*
 ## Exo 7
 - Créer un component ProductList qui va afficher des produits venant d'un .JSON. 
 Utiliser useState pour l'affichage des produits et 
 useEffect pour charger les produits au moment du montage. 
-Les données sont charger qu'une fois.
+Les données sont charger qu'une fois. 
 */
   return (
     <>
@@ -124,7 +133,7 @@ Les données sont charger qu'une fois.
       <hr />
       <ProgressBar progressvalue={progressValue} />
       <hr />
-      <Timer currentCount={countdown} />
+      <Timer currentCountMinutes={minutesDown} currentCountSeconds={secondsDown} />
       <hr />
      <ToDoList shownElems={shownElems} newSearch={newSearch}/>
      <hr />
