@@ -76,7 +76,7 @@ let [minutesDown , setMinutesDown] = useState(59)
 
 useEffect(() => {
   let interval = setInterval(() => {
-    setSecondsDown((prevSeconds) => prevSeconds - 1);
+    setSecondsDown((prevSeconds) => --prevSeconds);
   }, 1000); // Set interval to 1s for realistic timing
 
   return () => clearInterval(interval);
